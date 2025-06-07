@@ -1,6 +1,8 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Main (main) where
 
-import Lib
+import Communicator
 
 main :: IO ()
-main = someFunc
+main = (sendRaw "S'%4}).$%8") >>= print

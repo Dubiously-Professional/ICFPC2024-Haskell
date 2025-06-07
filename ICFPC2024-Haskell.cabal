@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      Communicator
       Lib
   other-modules:
       Paths_ICFPC2024_Haskell
@@ -35,6 +36,10 @@ library
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
+    , bytestring
+    , http-conduit
+    , http-types
+    , text
   default-language: Haskell2010
 
 executable ICFPC2024-Haskell-exe
@@ -49,6 +54,10 @@ executable ICFPC2024-Haskell-exe
   build-depends:
       ICFPC2024-Haskell
     , base >=4.7 && <5
+    , bytestring
+    , http-conduit
+    , http-types
+    , text
   default-language: Haskell2010
 
 test-suite ICFPC2024-Haskell-test
@@ -64,4 +73,8 @@ test-suite ICFPC2024-Haskell-test
   build-depends:
       ICFPC2024-Haskell
     , base >=4.7 && <5
+    , bytestring
+    , http-conduit
+    , http-types
+    , text
   default-language: Haskell2010
