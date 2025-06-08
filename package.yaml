@@ -25,6 +25,7 @@ dependencies:
 - bytestring
 - http-types
 - text
+- array
 
 ghc-options:
 - -Wall
