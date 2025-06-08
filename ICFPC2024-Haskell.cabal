@@ -27,6 +27,8 @@ library
   exposed-modules:
       Communicator
       Lib
+      Parse
+      Parse.String
   other-modules:
       Paths_ICFPC2024_Haskell
   autogen-modules:

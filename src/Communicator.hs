@@ -42,7 +42,5 @@ postWithBearer url token payload = do
         Left (ex :: SomeException) -> return $ Left $ "Request failed: " ++ show ex
         Right res -> return res
 
-sendRaw :: T.Text -> IO (Either String T.Text)
-sendRaw msg = do
-  response <- postWithBearer communicateUrl bearerToken (fromStrict $ encodeUtf8 msg)
-  return(fmap (decodeUtf8.toStrict) response)
+sendRaw :: T.Text -> IO (Either String LBS.ByteString)
+sendRaw msg = postWithBearer communicateUrl bearerToken (fromStrict $ encodeUtf8 msg)
