@@ -1,9 +1,9 @@
 name:                ICFPC2024-Haskell
 version:             0.1.0.0
 github:              "Dubiously-Professional/ICFPC2024-Haskell"
-author:              "Joel Croteau"
-maintainer:          "joelcroteau"
-copyright:           "© 2025 by Joel Croteau, all rights reserved."
+author:              "Dubiously Professional"
+maintainer:          "Dubiously-Professional"
+copyright:           "© 2025 by Dubiously Professional, all rights reserved."
 
 extra-source-files:
 - README.md
