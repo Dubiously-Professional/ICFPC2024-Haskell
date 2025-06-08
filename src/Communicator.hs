@@ -1,15 +1,15 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
-module Communicator (sendRaw) where
+module Communicator (sendRaw, sendText) where
 
 import Network.HTTP.Simple
 import Network.HTTP.Types.Status (statusCode)
 import Data.ByteString.Char8 as BS8
 import Data.ByteString.Lazy as LBS
-import Data.Text.Encoding
 import qualified Data.Text as T
 import Control.Exception (try, SomeException)
+import Parse (unparse)
 
 bearerToken :: String
 bearerToken = "00000000-0000-0000-0000-000000000000"
@@ -42,5 +42,10 @@ postWithBearer url token payload = do
         Left (ex :: SomeException) -> return $ Left $ "Request failed: " ++ show ex
         Right res -> return res
 
-sendRaw :: T.Text -> IO (Either String LBS.ByteString)
-sendRaw msg = postWithBearer communicateUrl bearerToken (fromStrict $ encodeUtf8 msg)
+sendRaw :: LBS.ByteString -> IO (Either String LBS.ByteString)
+sendRaw = postWithBearer communicateUrl bearerToken
+
+sendText :: T.Text -> IO (Either String LBS.ByteString)
+sendText msg = case unparse msg of
+  Nothing -> return(Left "Unrecognized character in input.")
+  Just payload -> sendRaw payload

@@ -26,6 +26,7 @@ dependencies:
 - http-types
 - text
 - array
+- containers
 
 ghc-options:
 - -Wall
