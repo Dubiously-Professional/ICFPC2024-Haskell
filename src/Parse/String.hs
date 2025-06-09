@@ -20,9 +20,9 @@ translationArray = array (33, 126) (zip [33..126] translationTable)
 reverseTranslationMap :: Map Char Word8
 reverseTranslationMap = Map.fromList (zip translationTable [33..126])
 
-decodeString :: LBS.ByteString -> Maybe T.Text
-decodeString lbs =
-    let bytes = LBS.unpack lbs
+decodeString :: String -> Maybe T.Text
+decodeString raw =
+  let bytes = map (fromIntegral.fromEnum) raw
     in fmap T.pack (mapM translateByte bytes)
 
 translateByte :: Word8 -> Maybe Char
