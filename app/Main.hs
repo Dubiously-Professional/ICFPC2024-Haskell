@@ -16,6 +16,7 @@ main = do
   result <- sendText $ T.pack msg
   case result of
     Left err -> putStrLn err
-    Right response -> case parse response of
-      Nothing -> putStrLn "Parse failed"
-      Just parsed -> TIO.putStrLn parsed
+    Right response -> 
+      case parse response of
+        Left evalErr -> putStrLn $ "Evaluation error: " ++ show evalErr
+        Right evalResult -> TIO.putStrLn evalResult
