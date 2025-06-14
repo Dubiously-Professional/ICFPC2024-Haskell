@@ -1,4 +1,4 @@
-cabal-version: 2.2
+cabal-version: 1.12
 
 -- This file has been generated from package.yaml by hpack version 0.37.0.
 --
@@ -12,12 +12,7 @@ bug-reports:    https://github.com/Dubiously-Professional/ICFPC2024-Haskell/issu
 author:         Joel Croteau
 maintainer:     joelcroteau
 copyright:      © 2025 by Joel Croteau, all rights reserved.
-license:        BSD-3-Clause
-license-file:   LICENSE
 build-type:     Simple
-extra-source-files:
-    README.md
-    CHANGELOG.md
 
 source-repository head
   type: git
@@ -28,10 +23,9 @@ library
       Communicator
       Lib
       Parse
+      Parse.Int
       Parse.String
   other-modules:
-      Paths_ICFPC2024_Haskell
-  autogen-modules:
       Paths_ICFPC2024_Haskell
   hs-source-dirs:
       src
@@ -49,8 +43,6 @@ library
 executable communicator
   main-is: Main.hs
   other-modules:
-      Paths_ICFPC2024_Haskell
-  autogen-modules:
       Paths_ICFPC2024_Haskell
   hs-source-dirs:
       app
@@ -70,8 +62,6 @@ test-suite ICFPC2024-Haskell-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_ICFPC2024_Haskell
-  autogen-modules:
       Paths_ICFPC2024_Haskell
   hs-source-dirs:
       test

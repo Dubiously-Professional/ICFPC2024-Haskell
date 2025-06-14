@@ -5,10 +5,6 @@ author:              "Joel Croteau"
 maintainer:          "joelcroteau"
 copyright:           "© 2025 by Joel Croteau, all rights reserved."
 
-extra-source-files:
-- README.md
-- CHANGELOG.md
-
 # Metadata used when publishing your package
 # synopsis:            Short description of your package
 # category:            ICFPC2024
