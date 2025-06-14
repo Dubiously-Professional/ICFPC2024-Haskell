@@ -47,6 +47,16 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - ICFPC2024-Haskell
+  translator:
+    main: TranslatorApp.hs
+    source-dirs: app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -main-is TranslatorApp
+    dependencies:
+    - ICFPC2024-Haskell
 
 tests:
   ICFPC2024-Haskell-test:

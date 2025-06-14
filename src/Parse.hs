@@ -10,6 +10,7 @@ module Parse
   , evaluate
   , display
   , (Parse.<|>)
+  , tokenize
   ) where
 
 import qualified Data.Text as T

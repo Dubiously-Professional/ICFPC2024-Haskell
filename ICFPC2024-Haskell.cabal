@@ -25,6 +25,8 @@ library
       Parse
       Parse.Int
       Parse.String
+      Translated.LanguageTest
+      Translator
   other-modules:
       Paths_ICFPC2024_Haskell
   hs-source-dirs:
@@ -43,10 +45,30 @@ library
 executable communicator
   main-is: Main.hs
   other-modules:
+      TranslatorApp
       Paths_ICFPC2024_Haskell
   hs-source-dirs:
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      ICFPC2024-Haskell
+    , array
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+    , http-conduit
+    , http-types
+    , text
+  default-language: Haskell2010
+
+executable translator
+  main-is: TranslatorApp.hs
+  other-modules:
+      Main
+      Paths_ICFPC2024_Haskell
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -main-is TranslatorApp
   build-depends:
       ICFPC2024-Haskell
     , array
