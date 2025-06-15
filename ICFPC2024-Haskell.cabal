@@ -25,7 +25,6 @@ library
       Parse
       Parse.Int
       Parse.String
-      Translated.LanguageTest
       Translator
   other-modules:
       Paths_ICFPC2024_Haskell

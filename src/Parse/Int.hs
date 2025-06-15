@@ -5,7 +5,6 @@ decodeInt = decodeInt' (Just 0) where
     decodeInt' acc [] = acc
     decodeInt' acc (h:t) = decodeInt' ((+).(94*) <$> acc <*> translateChar h) t
 
-
 translateChar :: Char -> Maybe Int
 translateChar c
     | n >=33 && n < 127 = Just $ n - 33
