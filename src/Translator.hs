@@ -1,6 +1,6 @@
 module Translator (translate, reallyEncodeString, reallyDecodeInt, encodeInt, reallyDecodeString) where
 
-import Parse (tokenize, Parser, runParser, failParse, ParseError (InvalidBody, InputUnderflow), parseToken, toString)
+import Parse (tokenize, Parser, runParser, failParse, ParseError (InvalidBody, SyntaxError), parseToken, toString)
 import Parse.String (decodeString, encodeString)
 import Parse.Int (decodeInt, encodeInt)
 import Data.Maybe (fromMaybe)
@@ -67,11 +67,13 @@ translateToken "B&" = translateInfix "&&"
 translateToken "B." = translateInfix "++"
 translateToken "BT" = translateInfix "`take`"
 translateToken "BD" = translateInfix "`drop`"
+translateToken "B!" = translateInfix "$!"
+translateToken "B~" = translateInfix "$"
 translateToken ('B':body) = translateInfix body
 translateToken "?" = translateIfThen
 translateToken ('L':body) = maybeParse (show <$> decodeInt body) >>= translateLambda
 translateToken ('v':body) = maybeParse $ Just "v" <++> (show <$> decodeInt body)
-translateToken _ = failParse InputUnderflow
+translateToken x = failParse $ SyntaxError x
 
 makeHaskell :: LBS.ByteString -> Maybe String
 makeHaskell icfp = let initialState = tokenize icfp

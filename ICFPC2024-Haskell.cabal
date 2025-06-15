@@ -25,6 +25,9 @@ library
       Parse
       Parse.Int
       Parse.String
+      Translated.Efficiency.Efficiency2
+      Translated.Efficiency.Efficiency3
+      Translated.Efficiency.Efficiency4
       Translator
   other-modules:
       Paths_ICFPC2024_Haskell

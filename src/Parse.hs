@@ -47,6 +47,7 @@ data ParseError
   | InputUnderflow
   | EmptyToken
   | InvalidBody
+  | SyntaxError String
   deriving (Eq, Show)
 
 newtype Parser a = Parser { runParser :: [String] -> Either ParseError (a, [String]) }
