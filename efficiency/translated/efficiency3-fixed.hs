@@ -1,7 +1,3 @@
-module Translated.Efficiency.Efficiency3 where
-
-import Translator (reallyEncodeString, reallyDecodeInt, reallyDecodeString, encodeInt)
-
 f1 :: (Int -> Int) -> Int -> Int
 f1 v3 v4 = if v4 == 0 then 1 else 1 + v3 (v4 - 1)
 

@@ -82,4 +82,4 @@ translate :: LBS.ByteString -> Maybe String
 translate response = Just headers <++> makeHaskell response
 
 headers :: String
-headers = "import Translator.Runtime\n\n"
+headers = "import Translator.Runtime\n\nresult = "

@@ -1,0 +1,3 @@
+import Translator.Runtime
+
+result = (unFunc (Func $ \v0 -> (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ 1)) $ (Func $ \v0 -> ((v0 + v0) + (v0 + v0)))
