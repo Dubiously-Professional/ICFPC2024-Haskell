@@ -1,9 +1,8 @@
-module Translator (translate, reallyEncodeString, reallyDecodeInt, encodeInt, reallyDecodeString) where
+module Translator (translate) where
 
-import Parse (tokenize, Parser, runParser, failParse, ParseError (InvalidBody, SyntaxError), parseToken, toString)
-import Parse.String (decodeString, encodeString)
-import Parse.Int (decodeInt, encodeInt)
-import Data.Maybe (fromMaybe)
+import Parse (tokenize, Parser, runParser, failParse, ParseError (InvalidBody, SyntaxError), parseToken)
+import Parse.String (decodeString)
+import Parse.Int (decodeInt)
 import qualified Data.Text as T
 import qualified Data.ByteString.Lazy as LBS
 
@@ -39,16 +38,13 @@ translateIfThen = do
 translateLambda :: String -> Parser String
 translateLambda arg = do
     body <- translateExpression
-    return $ "(\\v" ++ arg ++ " -> " ++ body ++ ")"
+    return $ "(Func $ \\v" ++ arg ++ " -> " ++ body ++ ")"
 
-reallyEncodeString :: String -> String
-reallyEncodeString s = maybe "Encoding Error" toString (encodeString $ T.pack s)
-
-reallyDecodeString :: String -> String
-reallyDecodeString s = maybe "Decoding Error" T.unpack (decodeString s)
-
-reallyDecodeInt :: String -> Int
-reallyDecodeInt s = fromMaybe (-1337) $ decodeInt s
+translateCall :: String -> Parser String
+translateCall op = do
+    func <- translateExpression
+    arg <- translateExpression
+    return $ "(unFunc " ++ func ++ ") " ++ op ++ " " ++ arg
 
 translateToken :: String -> Parser String
 translateToken "T" = return "True"
@@ -67,8 +63,9 @@ translateToken "B&" = translateInfix "&&"
 translateToken "B." = translateInfix "++"
 translateToken "BT" = translateInfix "`take`"
 translateToken "BD" = translateInfix "`drop`"
-translateToken "B!" = translateInfix "$!"
-translateToken "B~" = translateInfix "$"
+translateToken "B$" = translateCall "$"
+translateToken "B!" = translateCall "$!"
+translateToken "B~" = translateCall "$"
 translateToken ('B':body) = translateInfix body
 translateToken "?" = translateIfThen
 translateToken ('L':body) = maybeParse (show <$> decodeInt body) >>= translateLambda
@@ -85,4 +82,4 @@ translate :: LBS.ByteString -> Maybe String
 translate response = Just headers <++> makeHaskell response
 
 headers :: String
-headers = "import Translator (reallyEncodeString, reallyDecodeInt, reallyDecodeString, encodeInt)\n\n"
+headers = "import Translator.Runtime\n\n"

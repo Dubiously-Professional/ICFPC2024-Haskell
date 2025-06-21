@@ -28,7 +28,9 @@ library
       Translated.Efficiency.Efficiency2
       Translated.Efficiency.Efficiency3
       Translated.Efficiency.Efficiency4
+      Translated.Efficiency.Efficiency5
       Translator
+      Translator.Runtime
   other-modules:
       Paths_ICFPC2024_Haskell
   hs-source-dirs:
