@@ -1,3 +1,3 @@
 import Translator.Runtime
 
-result = (unFunc (Func $ \v0 -> (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ (unFunc v0) $ 1)) $ (Func $ \v0 -> ((v0 + v0) + (v0 + v0)))
+result = extractResult $ applyFunc ((mkFunc $ \v0 -> applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) (applyFunc (v0) ((mkInt 1))))))))))))))))))))))))) ((mkFunc $ \v0 -> ((v0 `addVal` v0) `addVal` (v0 `addVal` v0))))

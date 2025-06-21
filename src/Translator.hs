@@ -33,40 +33,45 @@ translateIfThen = do
     cond <- translateExpression
     t <- translateExpression
     f <- translateExpression
-    return $ "(if " ++ cond ++ " then " ++ t ++ " else " ++ f ++ ")"
+    return $ "(ifThenElse " ++ cond ++ " " ++ t ++ " " ++ f ++ ")"
 
 translateLambda :: String -> Parser String
 translateLambda arg = do
     body <- translateExpression
-    return $ "(Func $ \\v" ++ arg ++ " -> " ++ body ++ ")"
+    return $ "(mkFunc $ \\v" ++ arg ++ " -> " ++ body ++ ")"
 
 translateCall :: String -> Parser String
 translateCall op = do
     func <- translateExpression
     arg <- translateExpression
-    return $ "(unFunc " ++ func ++ ") " ++ op ++ " " ++ arg
+    return $ "applyFunc (" ++ func ++ ") (" ++ arg ++ ")"
 
 translateToken :: String -> Parser String
-translateToken "T" = return "True"
-translateToken "F" = return "False"
-translateToken ('I':body) = maybeParse $ show <$> decodeInt body
-translateToken ('S':body) = maybeParse $ Just "\"" <++> (T.unpack <$> decodeString body) <++> Just "\""
-translateToken "U-" = translateUnary "negate"
-translateToken "U!" = translateUnary "not"
-translateToken "U#" = translateUnary "reallyDecodeInt $ reallyEncodeString"
-translateToken "U$" = translateUnary "reallyDecodeString $ encodeInt"
-translateToken "B/" = translateInfix "`quot`"
-translateToken "B%" = translateInfix "`rem`"
-translateToken "B=" = translateInfix "=="
-translateToken "B|" = translateInfix "||"
-translateToken "B&" = translateInfix "&&"
-translateToken "B." = translateInfix "++"
-translateToken "BT" = translateInfix "`take`"
-translateToken "BD" = translateInfix "`drop`"
+translateToken "T" = return "(mkBool True)"
+translateToken "F" = return "(mkBool False)"
+translateToken ('I':body) = maybeParse $ (\x -> "(mkInt " ++ show x ++ ")") <$> decodeInt body
+translateToken ('S':body) = maybeParse $ Just "(mkString \"" <++> (T.unpack <$> decodeString body) <++> Just "\")"
+translateToken "U-" = translateUnary "negateVal"
+translateToken "U!" = translateUnary "notVal"
+translateToken "U#" = translateUnary "strToInt"
+translateToken "U$" = translateUnary "intToStr"
+translateToken "B/" = translateInfix "`quotVal`"
+translateToken "B%" = translateInfix "`remVal`"
+translateToken "B=" = translateInfix "`eqVal`"
+translateToken "B|" = translateInfix "`orVal`"
+translateToken "B&" = translateInfix "`andVal`"
+translateToken "B." = translateInfix "`concatVal`"
+translateToken "BT" = translateInfix "`takeVal`"
+translateToken "BD" = translateInfix "`dropVal`"
 translateToken "B$" = translateCall "$"
 translateToken "B!" = translateCall "$!"
 translateToken "B~" = translateCall "$"
-translateToken ('B':body) = translateInfix body
+translateToken "B+" = translateInfix "`addVal`"
+translateToken "B-" = translateInfix "`subVal`"
+translateToken "B*" = translateInfix "`mulVal`"
+translateToken "B<" = translateInfix "`ltVal`"
+translateToken "B>" = translateInfix "`gtVal`"
+translateToken ('B':body) = error $ "Unknown binary operator: B" ++ body
 translateToken "?" = translateIfThen
 translateToken ('L':body) = maybeParse (show <$> decodeInt body) >>= translateLambda
 translateToken ('v':body) = maybeParse $ Just "v" <++> (show <$> decodeInt body)
@@ -82,4 +87,4 @@ translate :: LBS.ByteString -> Maybe String
 translate response = Just headers <++> makeHaskell response
 
 headers :: String
-headers = "import Translator.Runtime\n\nresult = "
+headers = "import Translator.Runtime\n\nresult = extractResult $ "
