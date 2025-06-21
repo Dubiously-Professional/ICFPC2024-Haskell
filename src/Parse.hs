@@ -10,6 +10,12 @@ module Parse
   , evaluate
   , display
   , (Parse.<|>)
+  , tokenize
+  , Parser
+  , parseToken
+  , failParse
+  , runParser
+  , toString
   ) where
 
 import qualified Data.Text as T
@@ -40,6 +46,8 @@ data ParseError
   = UnknownPrefix Char
   | InputUnderflow
   | EmptyToken
+  | InvalidBody
+  | SyntaxError String
   deriving (Eq, Show)
 
 newtype Parser a = Parser { runParser :: [String] -> Either ParseError (a, [String]) }
@@ -87,8 +95,11 @@ evaluate (Constant x) = x
 evaluate (UnaryOp f arg) = f $ evaluate arg
 evaluate (BinaryOp f arg1 arg2) = f (evaluate arg1) (evaluate arg2)
 
+toString :: LBS.ByteString -> String
+toString raw =  map (toEnum . fromIntegral) $ LBS.unpack raw
+
 tokenize :: LBS.ByteString -> [String]
-tokenize raw = words $ map (toEnum . fromIntegral) $ LBS.unpack raw
+tokenize = words.toString
 
 -- Helper method to build functions of values. Implement other helpers as you need them
 lift :: (Int -> Int -> Int) -> Value -> Value -> Value

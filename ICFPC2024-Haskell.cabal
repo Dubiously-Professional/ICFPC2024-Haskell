@@ -1,4 +1,5 @@
 cabal-version: 1.12
+cabal-version: 1.12
 
 -- This file has been generated from package.yaml by hpack version 0.37.0.
 --
@@ -13,9 +14,6 @@ author:         Dubiously Professional
 maintainer:     Dubiously-Professional
 copyright:      © 2025 by Dubiously Professional, all rights reserved.
 build-type:     Simple
-extra-source-files:
-    README.md
-    CHANGELOG.md
 
 source-repository head
   type: git
@@ -26,7 +24,14 @@ library
       Communicator
       Lib
       Parse
+      Parse.Int
       Parse.String
+      Translated.Efficiency.Efficiency2
+      Translated.Efficiency.Efficiency3
+      Translated.Efficiency.Efficiency4
+      Translated.Efficiency.Efficiency5
+      Translator
+      Translator.Runtime
   other-modules:
       Paths_ICFPC2024_Haskell
   hs-source-dirs:
@@ -45,10 +50,30 @@ library
 executable communicator
   main-is: Main.hs
   other-modules:
+      TranslatorApp
       Paths_ICFPC2024_Haskell
   hs-source-dirs:
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      ICFPC2024-Haskell
+    , array
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+    , http-conduit
+    , http-types
+    , text
+  default-language: Haskell2010
+
+executable translator
+  main-is: TranslatorApp.hs
+  other-modules:
+      Main
+      Paths_ICFPC2024_Haskell
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -main-is TranslatorApp
   build-depends:
       ICFPC2024-Haskell
     , array

@@ -5,10 +5,6 @@ author:              "Dubiously Professional"
 maintainer:          "Dubiously-Professional"
 copyright:           "© 2025 by Dubiously Professional, all rights reserved."
 
-extra-source-files:
-- README.md
-- CHANGELOG.md
-
 # Metadata used when publishing your package
 # synopsis:            Short description of your package
 # category:            ICFPC2024
@@ -49,6 +45,16 @@ executables:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    dependencies:
+    - ICFPC2024-Haskell
+  translator:
+    main: TranslatorApp.hs
+    source-dirs: app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -main-is TranslatorApp
     dependencies:
     - ICFPC2024-Haskell
 
