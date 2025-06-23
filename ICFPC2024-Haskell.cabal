@@ -27,6 +27,7 @@ library
       Parse.String
       Translator
       Translator.Runtime
+      Utils
   other-modules:
       Paths_ICFPC2024_Haskell
   hs-source-dirs:

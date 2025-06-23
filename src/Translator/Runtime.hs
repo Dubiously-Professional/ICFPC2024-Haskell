@@ -19,7 +19,7 @@ module Translator.Runtime
 
 import Parse.String (encodeString, decodeString)
 import Parse.Int (encodeInt, decodeInt)
-import Parse (toString)
+import Utils (toString)
 import qualified Data.Text as T
 import Data.Maybe (fromMaybe)
 
@@ -145,3 +145,4 @@ reallyDecodeString s = maybe "Decoding Error" T.unpack (decodeString s)
 
 reallyDecodeInt :: String -> Int
 reallyDecodeInt s = fromMaybe (-1337) $ decodeInt s
+
